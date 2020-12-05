@@ -1,6 +1,6 @@
 <main class="content">
     <mat-card>
-        <mat-card-content *ngIf="!loading">
+        <mat-card-content>
             <form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!isSignUpMode">
                 <h2>Log In</h2>
                 <mat-error *ngIf="loginForm.hasError('unauthorized')">
@@ -15,20 +15,26 @@
                 <mat-form-field class="full-width-input">
                     <input matInput type="password" [type]="hidePassword ? 'password' : 'text'" placeholder="Password"
                         formControlName="password" required>
-                    <button class="hide-password" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+                    <button class="hide-password" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button" tabindex="-1">
                         <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                     </button>
                 </mat-form-field>
                 <section class="actions">
                     <button mat-button type="button" (click)="toSignUpMode()">Sign Up</button>
-                    <button mat-raised-button color="primary">Login</button>
+                    <button mat-raised-button color="primary" class="primary-button">
+                        <span *ngIf="!loading">Login</span>
+                        <mat-spinner *ngIf="loading" [diameter]="20"></mat-spinner>
+                    </button>
                 </section>
             </form>
 
             <form [formGroup]="signUpForm" (ngSubmit)="signUp()" *ngIf="isSignUpMode">
                 <h2>Sign Up</h2>
                 <mat-error *ngIf="signUpForm.hasError('usernameInUse')">
-                    The username already in use
+                    The username is already in use
+                </mat-error>
+                <mat-error *ngIf="signUpForm.hasError('signUpError')">
+                    An error has occourred
                 </mat-error>
                 <mat-error *ngIf="signUpForm.hasError('notSame')">
                     Passwords do not match
@@ -39,23 +45,25 @@
                 <mat-form-field class="full-width-input">
                     <input matInput type="password" [type]="hidePassword ? 'password' : 'text'" placeholder="Password"
                         formControlName="password" required>
-                    <button class="hide-password" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+                    <button class="hide-password" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button" tabindex="-1">
                         <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                     </button>
                 </mat-form-field>
                 <mat-form-field class="full-width-input">
                     <input matInput type="password" [type]="hideConfirmPassword ? 'password' : 'text'" placeholder="Confirm Password"
                         formControlName="confirmPassword" required>
-                    <button class="hide-password" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" type="button">
+                    <button class="hide-password" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" type="button" tabindex="-1">
                         <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                     </button>
                 </mat-form-field>
                 <section class="actions">
                     <button mat-button type="button" (click)="toLoginMode()">Cancel</button>
-                    <button mat-raised-button color="primary">Sign Up</button>
+                    <button mat-raised-button color="primary" class="primary-button">
+                        <span *ngIf="!loading">Sign Up</span>
+                        <mat-spinner *ngIf="loading" [diameter]="20"></mat-spinner>
+                    </button>
                 </section>
             </form>
         </mat-card-content>
-        <mat-spinner *ngIf="loading"></mat-spinner>
     </mat-card>
 </main>

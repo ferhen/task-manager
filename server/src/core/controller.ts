@@ -5,7 +5,8 @@ export async function signUp(username: string, password: string) {
 }
 
 export async function login(username: string, password: string) {
-    return await findDocument('users', { username });
+    const user = await findDocument('users', { username });
+    return user?.password === password;
 }
 
 export async function listTasks(username: string) { 

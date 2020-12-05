@@ -1,6 +1,7 @@
 import { Db, MongoClient } from 'mongodb';
 
-const client = new MongoClient('mongodb://database:27018/products?authSource=admin&ssl=false', {
+const dbHost = process.env.DATABASE?.trim() || 'database';
+const client = new MongoClient(`mongodb://${dbHost}:27018/task-manager?authSource=admin&ssl=false`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -10,6 +11,11 @@ let db: Db;
 const connect = async () => {
     await client.connect();
     db = client.db('task-manager');
+}
+
+const setupIndex = async () => {
+    const usersCollection = db.collection('users');
+    usersCollection.createIndex({ 'username': 1 }, { unique: true });
 }
 
 export const findDocument = (collectionName: string, query: any) => {
@@ -32,4 +38,7 @@ export const deleteDocuments = (collectionName: string) => {
     return collection.deleteMany({});
 }
 
-(async () => await connect())();
+(async () => {
+    await connect();
+    await setupIndex();   
+})();

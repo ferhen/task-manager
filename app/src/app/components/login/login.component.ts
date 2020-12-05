@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize } from 'rxjs/operators';
 
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
@@ -12,20 +13,21 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
 })
 export class LoginComponent {
     constructor(
+        private readonly authenticationService: AuthenticationService,
         private readonly formBuilder: FormBuilder,
-        private readonly authenticationService: AuthenticationService
+        private readonly snackBar: MatSnackBar
     ) { }
 
-    hidePassword = true;
-    hideConfirmPassword = true;
-    isSignUpMode = false;
-    loading = false;
+    public hidePassword = true;
+    public hideConfirmPassword = true;
+    public isSignUpMode = false;
+    public loading = false;
 
-    loginForm = this.formBuilder.group({
+    public loginForm = this.formBuilder.group({
         username: ['', Validators.required],
         password: ['', Validators.required]
     });
-    signUpForm = this.formBuilder.group({
+    public signUpForm = this.formBuilder.group({
         username: ['', Validators.required],
         password: ['', Validators.required],
         confirmPassword: ['', Validators.required],
@@ -34,16 +36,24 @@ export class LoginComponent {
     public signUp(): void {
         if (this.signUpForm.valid) {
             this.loading = true;
-            const { username, password } = this.loginForm.value;
+            const { username, password } = this.signUpForm.value;
 
             this.authenticationService.signUp(username, password).pipe(
                 finalize(() => this.loading = false)
             ).subscribe({
                 error: err => {
-                    console.log(err);
-                    this.signUpForm.setErrors({ usernameInUse: true });
+                    if (err?.error?.code === 'usernameInUse') {
+                        this.signUpForm.setErrors({ usernameInUse: true });
+                    } else {
+                        this.signUpForm.setErrors({ signUpError: true });
+                    }
                 },
-                complete: () => localStorage.setItem('auth', 'Basic ' + btoa('username:password'))
+                complete: () => {
+                    this.snackBar.open('Sign up successful!', 'Close', {
+                        duration: 10000,
+                    });
+                    this.isSignUpMode = false;
+                }
             });
         }
     }
@@ -63,7 +73,9 @@ export class LoginComponent {
                         this.loginForm.setErrors({ loginError: true });
                     }
                 },
-                complete: () => localStorage.setItem('auth', 'Basic ' + btoa('username:password'))
+                complete: () => {
+                    this.authenticationService.storeAuthentication(username, password);
+                }
             });
         }
     }

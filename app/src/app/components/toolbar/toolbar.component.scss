@@ -10,8 +10,13 @@
     color: white;
     font-weight: 500;
     font-size: 18px;
-}
 
-.toolbar img {
-    margin: 0 16px;
+    img {
+        margin: 0 16px;
+    }
+
+    button {
+        position: absolute;
+        right: 10px;
+    }
 }

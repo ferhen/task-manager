@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev ./src/index.ts",
+    "start": "set PORT=4000 && set DATABASE=localhost && ts-node-dev ./src/index.ts",
     "build": "tsc && node dist/index.js"
   },
   "devDependencies": {

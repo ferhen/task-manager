@@ -1,4 +1,5 @@
 <div class="toolbar" role="banner">
     <img width="40" alt="Angular Logo" src="assets/logo.png" />
     <span>Task Manager</span>
+    <button mat-button type="button" (click)="logout()" *ngIf="isAuthenticated">Log Out</button>
 </div>

@@ -16,8 +16,14 @@ main.content {
         width: 100%;
     }
 
-    button.hide-password {
-        font-size: 20px;
+    button {
+        &.primary-button {
+            width: 80px;
+        }
+
+        &.hide-password {
+            font-size: 20px;
+        }   
     }
 
     section.actions {
@@ -26,6 +32,10 @@ main.content {
     }
 
     mat-spinner {
-        margin: 15% auto;
+        margin: 0 auto;
+        
+        ::ng-deep circle {
+            stroke: white;
+        }
     }
 }

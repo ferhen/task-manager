@@ -11,16 +11,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
+import { TasksComponent } from './components/tasks/tasks.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { BackgroundComponent } from './components/background/background.component';
 import { AuthenticationInterceptor } from './interceptors/authentication/authentication.interceptor';
 
 const routes: Routes = [
-    { path: '', component: LoginComponent }
+    { path: '', component: LoginComponent },
+    { path: 'tasks', component: TasksComponent}
 ];
 
 @NgModule({
@@ -28,7 +31,8 @@ const routes: Routes = [
         AppComponent,
         LoginComponent,
         ToolbarComponent,
-        BackgroundComponent
+        BackgroundComponent,
+        TasksComponent
     ],
     imports: [
         BrowserModule,
@@ -43,7 +47,8 @@ const routes: Routes = [
         MatFormFieldModule,
         MatButtonModule,
         MatIconModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatSnackBarModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true }

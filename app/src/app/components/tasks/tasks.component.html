@@ -1,0 +1,5 @@
+<main class="content">
+    <div *ngFor="let task of tasks$ | async">
+        {{ task | json }}
+    </div>
+</main>
