@@ -1,4 +1,4 @@
-import { Db, MongoClient } from 'mongodb';
+import { Db, MongoClient, ObjectID } from 'mongodb';
 
 const dbHost = process.env.DATABASE?.trim() || 'database';
 const client = new MongoClient(`mongodb://${dbHost}:27018/task-manager?authSource=admin&ssl=false`, {
@@ -28,14 +28,20 @@ export const insertDocument = (collectionName: string, document: any) => {
     return collection.insertOne(document);
 }
 
-export const listDocuments = (collectionName: string, query: any) => {
+export const listDocuments = (collectionName: string, query: any, fields = {}) => {
     const collection = db.collection(collectionName);
-    return collection.find(query).toArray();
+    return collection.find(query, { fields }).toArray();
 }
 
-export const deleteDocuments = (collectionName: string) => {
+export const updateDocument = (collectionName: string, document: any) => {
+    const { _id, ...documentProperties } = document;
     const collection = db.collection(collectionName);
-    return collection.deleteMany({});
+    return collection.updateOne({ _id: new ObjectID(_id) }, { $set: documentProperties });
+}
+
+export const deleteDocument = (collectionName: string, id: string) => {
+    const collection = db.collection(collectionName);
+    return collection.deleteOne({ _id : new ObjectID(id) });
 }
 
 (async () => {

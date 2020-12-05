@@ -11,4 +11,13 @@ body {
         height: 100%;
         box-sizing: border-box;
     }
+
+    .right-aligned-header > .mat-content {
+        justify-content: space-between;
+    }
+    
+    .mat-content > mat-panel-title, .mat-content > mat-panel-description {
+      flex: 0 0 auto;
+      min-width: 40%;
+    }
 }

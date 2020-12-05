@@ -1,22 +1,34 @@
+import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
-import { BackgroundComponent } from './background/background.component';
-import { LoginComponent } from './login/login.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { BackgroundComponent } from './components/background/background.component';
+import { LoginComponent } from './components/login/login.component';
+import { TaskDialogComponent } from './components/task-dialog/task-dialog.component';
+import { TasksComponent } from './components/tasks/tasks.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientModule,
+        FormsModule,
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule
       ],
       declarations: [
         AppComponent,
         LoginComponent,
         ToolbarComponent,
-        BackgroundComponent
+        BackgroundComponent,
+        TasksComponent,
+        TaskDialogComponent
       ],
     }).compileComponents();
   });

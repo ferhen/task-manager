@@ -1,3 +1,47 @@
 main.content {
-    padding-top: 60px;
+    padding: 80px 5% 60px;
+
+    mat-form-field.full-width-input {
+        width: 100%;
+    }
+
+    section.tasks-container {
+        max-height: 85%;
+        overflow-y: scroll;
+        padding: 5px;
+        border: 1px solid #e1e1e1;
+        border-radius: 3px;
+        background-color: #efefef;
+
+        div.empty {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            font-size: 25px;
+            border: 1px solid lightgray;
+            font-weight: 500;
+        }
+    }
+
+    button#add-task {
+        position: absolute;
+        right: 5%;
+        bottom: 15px;
+    }
+
+    .task-details {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        span {
+            flex-grow: 2;
+            max-width: calc(100% - 140px);
+            word-break: break-word;
+        }
+
+        button {
+            height: 36px;
+        }
+    }
 }

@@ -1,5 +1,38 @@
 <main class="content">
-    <div *ngFor="let task of tasks$ | async">
-        {{ task | json }}
-    </div>
+    <mat-form-field class="full-width-input">
+        <input matInput placeholder="Filter" [ngModel]="filter$ | async" (ngModelChange)="filter$.next($event)">
+        <button mat-button *ngIf="filter$ | async" matSuffix mat-icon-button (click)="filter$.next('')">
+          <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+
+    <section class="tasks-container">
+        <mat-accordion>
+            <mat-expansion-panel *ngFor="let task of tasks$ | async">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{ task.title }}
+                    </mat-panel-title>
+                    <mat-panel-description  class="right-aligned">
+                        {{ task.date | date: 'longDate' }}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="task-details">
+                    <span>{{ task.description }}</span>
+                    <button mat-raised-button type="button" (click)="editTask(task)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-raised-button color="warn" type="button" (click)="deleteTask(task._id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <div *ngIf="!(tasks$ | async)?.length" class="empty">There are no tasks</div>
+    </section>
+
+    <button id="add-task" mat-fab color="primary" (click)="addTask()">
+        <mat-icon>add</mat-icon>
+    </button>
 </main>

@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit Task' : 'Add Task' }}</h2>
+<form [formGroup]="form">
+    <mat-dialog-content class="mat-typography">
+        <mat-form-field class="full-width-input">
+            <input matInput placeholder="Title" formControlName="title" required>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+            <input matInput [matDatepicker]="datepicker" placeholder="Expected Date" formControlName="date" required>
+            <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="full-width-input">
+            <textarea matInput placeholder="Description" formControlName="description"></textarea>
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="form.value" [disabled]='!form.valid'>Confirm</button>
+    </mat-dialog-actions>
+</form>

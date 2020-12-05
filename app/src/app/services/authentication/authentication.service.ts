@@ -24,7 +24,6 @@ export class AuthenticationService {
     }
 
     private readonly AUTH_KEY = 'auth';
-    private readonly USER_KEY = 'username';
 
     public isAuthenticated$ = new Subject<boolean>();
 
@@ -44,13 +43,11 @@ export class AuthenticationService {
 
     public logout(): void {
         localStorage.removeItem(this.AUTH_KEY);
-        localStorage.removeItem(this.USER_KEY);
         this.isAuthenticated$.next(false);
     }
 
     public storeAuthentication(username: string, password: string): void {
         localStorage.setItem(this.AUTH_KEY, 'Basic ' + btoa(`${username}:${password}`));
-        localStorage.setItem(this.USER_KEY, username);
         this.isAuthenticated$.next(true);
     }
 
