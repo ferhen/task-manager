@@ -1,0 +1,61 @@
+<main class="content">
+    <mat-card>
+        <mat-card-content *ngIf="!loading">
+            <form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!isSignUpMode">
+                <h2>Log In</h2>
+                <mat-error *ngIf="loginForm.hasError('unauthorized')">
+                    The username and password were not recognised
+                </mat-error>
+                <mat-error *ngIf="loginForm.hasError('loginError')">
+                    An error occourred
+                </mat-error>
+                <mat-form-field class="full-width-input">
+                    <input matInput placeholder="Username" formControlName="username" required>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input matInput type="password" [type]="hidePassword ? 'password' : 'text'" placeholder="Password"
+                        formControlName="password" required>
+                    <button class="hide-password" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+                        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <section class="actions">
+                    <button mat-button type="button" (click)="toSignUpMode()">Sign Up</button>
+                    <button mat-raised-button color="primary">Login</button>
+                </section>
+            </form>
+
+            <form [formGroup]="signUpForm" (ngSubmit)="signUp()" *ngIf="isSignUpMode">
+                <h2>Sign Up</h2>
+                <mat-error *ngIf="signUpForm.hasError('usernameInUse')">
+                    The username already in use
+                </mat-error>
+                <mat-error *ngIf="signUpForm.hasError('notSame')">
+                    Passwords do not match
+                </mat-error>  
+                <mat-form-field class="full-width-input">
+                    <input matInput placeholder="Username" formControlName="username" required>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input matInput type="password" [type]="hidePassword ? 'password' : 'text'" placeholder="Password"
+                        formControlName="password" required>
+                    <button class="hide-password" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+                        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <mat-form-field class="full-width-input">
+                    <input matInput type="password" [type]="hideConfirmPassword ? 'password' : 'text'" placeholder="Confirm Password"
+                        formControlName="confirmPassword" required>
+                    <button class="hide-password" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" type="button">
+                        <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <section class="actions">
+                    <button mat-button type="button" (click)="toLoginMode()">Cancel</button>
+                    <button mat-raised-button color="primary">Sign Up</button>
+                </section>
+            </form>
+        </mat-card-content>
+        <mat-spinner *ngIf="loading"></mat-spinner>
+    </mat-card>
+</main>

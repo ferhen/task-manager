@@ -11,14 +11,14 @@ export class AuthenticationService {
 
     signUp(username: string, password: string): Observable<any> {
         return this.http.post(
-            `${environment.apiUrl}/users`,
+            `${environment.apiUrl}/signup`,
             { username, password }
         );
     }
 
     login(username: string, password: string): Observable<any> {
         return this.http.post(
-            `${environment.apiUrl}/users`,
+            `${environment.apiUrl}/login`,
             { username, password }
         );
     }

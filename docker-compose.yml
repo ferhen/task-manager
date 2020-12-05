@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  app:
+    build: ./app
+    ports:
+      - 80:80
+    links:
+      - server
+    depends_on:
+      - server
+    restart: always
+
+  server:
+    build:
+      context: ./server
+    ports:
+      - 5000:5000
+    links:
+      - database
+    depends_on:
+      - database
+    restart: always
+
+  database:
+    image: mongo
+    container_name: mongo
+    command: mongod --port 27018
+    ports:
+      - 27018:27018
+    restart: always
