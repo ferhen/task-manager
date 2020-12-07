@@ -1,27 +1,34 @@
-# TaskManager
+# Task Manager
+Task Manager is a web application with authentication for organizing your tasks.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
+![signup](/images/signup.png)
+![tasks](/images/tasks.png)
 
-## Development server
+# Run
+You can run this application locally using Node and MongoDB or from a docker container.
+## Local
+Before running locally, you must have a MongoDB instance running on `localhost:27018`.
+To start the server run the following commands from the project root directory.
+```
+cd server
+npm install
+npm start
+```
+To start the web application run the following commands from the project root directory.
+```
+cd app
+npm install
+npm start
+```
+The application will be available on `http://localhost:4200`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Docker
+To run the project using Docker following commands from the project root directory.
+```
+docker-compose up --build -d
+```
+The application will be exposed on `http://localhost:80`.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+# Features
+- [x] Authentication (Sign Up and Login screens);
+- [x] Tasks CRUD.
