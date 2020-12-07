@@ -22,7 +22,7 @@
                 <section class="actions">
                     <button mat-button type="button" (click)="toSignUpMode()">Sign Up</button>
                     <button mat-raised-button color="primary" class="primary-button">
-                        <span *ngIf="!loading">Login</span>
+                        <span *ngIf="!loading" i18n>Login</span>
                         <mat-spinner *ngIf="loading" [diameter]="20"></mat-spinner>
                     </button>
                 </section>
@@ -59,7 +59,7 @@
                 <section class="actions">
                     <button mat-button type="button" (click)="toLoginMode()">Cancel</button>
                     <button mat-raised-button color="primary" class="primary-button">
-                        <span *ngIf="!loading">Sign Up</span>
+                        <span *ngIf="!loading" i18n>Sign Up</span>
                         <mat-spinner *ngIf="loading" [diameter]="20"></mat-spinner>
                     </button>
                 </section>
